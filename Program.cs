@@ -1,14 +1,10 @@
 ﻿using CA24111201;
 
-Fish fish = new()
-{
-    Species = "Keszeg",
-    Predator = false,
-    Weight = 20.0F,
-    Top = 30,
-    Depth = 80,
-};
-
-fish.Weight += 2;
+Fish fish = new(
+    weight: 20F,
+    predator: false,
+    top: 30,
+    depth: 80,
+    species: "Keszeg");
 
 Console.WriteLine(fish);

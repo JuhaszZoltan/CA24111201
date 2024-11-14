@@ -5,6 +5,8 @@ internal class Fish
     private int top;
     private float weight;
     private bool weightIsSet = false;
+    private int depth;
+    private string species;
 
     public float Weight
     {
@@ -21,7 +23,7 @@ internal class Fish
             weightIsSet = true;
         }
     }
-    public bool Predator { get; set; }
+    public bool Predator { get; }
     public int Top
     {
         get => top;
@@ -33,12 +35,45 @@ internal class Fish
             top = value;
         }
     }
-    public int Depth { get; set; }
-    public string Species { get; set; }
+    public int Depth
+    {
+        get => depth;
+        set
+        {
+            if (value < 10 || value > 400) throw new Exception(
+                $"a depth értékét {value}-ra szeretnéd beállítani, ami a megngedett határon kívükl esik. A depth [10; 400] intervallumon belül valid");
+
+            depth = value;
+        }
+    }
+    public string Species
+    {
+        get => species;
+        set
+        {
+            if (value is null) throw new Exception("a species értéke nem lehet null");
+
+            if (value.Length < 3 || value.Length > 30) throw new Exception(
+                $"a species értékét {value}-ra szeretnéd beállítani. " +
+                $"ennek hossza ({value.Length}), ami a megengedett határokon kívül esik. " +
+                $"a species hossza [3, 30] között valid.");
+
+            species = value;
+        }
+    }
 
     public override string ToString() => 
         $"{Species} " +
-        $"({(Predator ? "carnivor" : "herbivor")}) " +
+        $"({(Predator ? "carnivore" : "herbivore")}) " +
         $"[{Top} - {Top + Depth} cm] " +
         $"{Weight:00.0} kg";
+
+    public Fish(float weight, bool predator, int top, int depth, string species)
+    {
+        Weight = weight;
+        Predator = predator;
+        Top = top;
+        Depth = depth;
+        Species = species;
+    }
 }
